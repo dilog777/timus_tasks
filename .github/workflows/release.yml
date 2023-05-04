@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - otus_test
       - feature/github_actions
 
 jobs:
