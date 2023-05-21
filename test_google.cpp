@@ -4,7 +4,7 @@
 
 TEST(test_version, test_valid_version)
 {
-	EXPECT_TRUE(buildNumber() > 0);
+	EXPECT_TRUE(buildNumber() < 0);
 }
 
 int main(int argc, char** argv) {
