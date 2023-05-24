@@ -1,4 +1,6 @@
-add_executable(test_google test_version.cpp)
+file(GLOB_RECURSE SRC *.h *.hpp *.cpp)
+
+add_executable(test_google ${SRC})
 
 set_target_properties(test_google PROPERTIES
 	CXX_STANDARD 14

@@ -1,4 +1,6 @@
-add_library(helloworld_lib lib.cpp)
+file(GLOB_RECURSE SRC *.h *.hpp *.cpp)
+
+add_library(helloworld_lib ${SRC})
 
 set_target_properties(helloworld_lib PROPERTIES
 	CXX_STANDARD 14

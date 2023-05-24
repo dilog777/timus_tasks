@@ -1,4 +1,6 @@
-add_executable(test_boost test_version.cpp)
+file(GLOB_RECURSE SRC *.h *.hpp *.cpp)
+
+add_executable(test_boost ${SRC})
 
 set_target_properties(test_boost PROPERTIES
 	CXX_STANDARD 14

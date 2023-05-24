@@ -1,4 +1,6 @@
-add_executable(helloworld main.cpp)
+file(GLOB_RECURSE SRC *.h *.hpp *.cpp)
+
+add_executable(helloworld ${SRC})
 
 set_target_properties(helloworld PROPERTIES
 	CXX_STANDARD 14
