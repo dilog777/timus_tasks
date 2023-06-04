@@ -1,11 +1,11 @@
 file(GLOB_RECURSE SRC *.h *.hpp *.cpp)
 
-add_executable(helloworld ${SRC})
+add_executable(allocator ${SRC})
 
-target_include_directories(helloworld PRIVATE
+target_include_directories(allocator PRIVATE
 	../library
 )
 
-target_link_libraries(helloworld PRIVATE
-	helloworld_lib
+target_link_libraries(allocator PRIVATE
+	allocator_lib
 )

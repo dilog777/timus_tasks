@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.12)
 set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
 set(PROJECT_VERSION 0.0.${PATCH_VERSION})
 
-project(helloworld VERSION ${PROJECT_VERSION})
+project(allocator VERSION ${PROJECT_VERSION})
 
 set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -15,8 +15,6 @@ else()
 	add_compile_options(-Wall -Wextra -pedantic -Werror)
 endif()
 
-
-find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -33,7 +31,7 @@ enable_testing()
 add_subdirectory(src)
 
 
-install(TARGETS helloworld RUNTIME DESTINATION bin)
+install(TARGETS allocator RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
 set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
