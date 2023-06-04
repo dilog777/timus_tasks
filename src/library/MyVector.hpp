@@ -39,7 +39,6 @@ T MyVector<T, Allocator>::at(std::size_t pos) const
 template<class T, class Allocator>
 void MyVector<T, Allocator>::push_back(const T &item)
 {
-	int x = sizeof(T);
 	if (_size == _capacity)
 	{
 		std::size_t newCapacity = _capacity * 2 + 1;

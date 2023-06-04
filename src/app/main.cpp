@@ -7,7 +7,7 @@
 
 
 template<template<typename...> typename Map, typename... Subtypes>
-void fillMapByFactorial(Map<Subtypes...> &map, std::size_t size)
+void fillMapByFactorial(Map<Subtypes...> &map, int size)
 {
 	if (size == 0)
 		return;
@@ -34,7 +34,7 @@ void printMap(Map<Subtypes...> &map)
 
 
 template<template<typename...> typename Vector, typename... Subtypes>
-void fillVectorByRange(Vector<Subtypes...> &vector, std::size_t size)
+void fillVectorByRange(Vector<Subtypes...> &vector, int size)
 {
 	for (int i = 0; i < size; ++i)
 		vector.push_back(i);
@@ -45,7 +45,7 @@ void fillVectorByRange(Vector<Subtypes...> &vector, std::size_t size)
 template<template<typename...> typename Vector, typename... Subtypes>
 void printVector(Vector<Subtypes...> &vector)
 {
-	for (int i = 0; i < vector.size(); ++i)
+	for (std::size_t i = 0; i < vector.size(); ++i)
 		std::cout << vector.at(i) << std::endl;
 }
 
