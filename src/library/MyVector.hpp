@@ -4,14 +4,16 @@
 template<class T, class Allocator = std::allocator<T>>
 class MyVector
 {
-
 public:
+	T at(std::size_t pos) const;
 	void push_back(const T& item);
 
 	bool isEmpty() const;
 	std::size_t size() const;
 
 	void clear();
+
+
 
 private:
 	std::size_t _size{ 0 };
@@ -20,6 +22,17 @@ private:
 
 	Allocator _alloc;
 };
+
+
+
+template<class T, class Allocator>
+T MyVector<T, Allocator>::at(std::size_t pos) const
+{
+	if (pos <= _size)
+		return _data[pos];
+
+	return {};
+}
 
 
 

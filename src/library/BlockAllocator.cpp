@@ -4,21 +4,8 @@
 
 
 
-static const std::size_t DEFAULT_ALLOCATED_BLOCK_SIZE = 1024;
-
-
-
-bool BlockInfo::operator==(const BlockInfo &other) const
-{
-	return ptr == other.ptr
-		&& size == other.size
-		&& busy == other.busy;
-}
-
-
-
-BlockAllocator::BlockAllocator()
-	: _blockSize{ DEFAULT_ALLOCATED_BLOCK_SIZE }
+BlockAllocator::BlockAllocator(std::size_t blockSize)
+	: _blockSize{ blockSize }
 {
 }
 
@@ -105,7 +92,8 @@ void BlockAllocator::releaseBlock(const BlockInfoIt &it)
 	if (it != _allocetedBlocks.end())
 	{
 		auto nextIt = std::next(it);
-		if (!nextIt->busy)
+		bool neighborsPtr = (static_cast<char *>(it->ptr) + it->size == nextIt->ptr);
+		if (!nextIt->busy && neighborsPtr)
 		{
 			it->size += nextIt->size;
 			_allocetedBlocks.erase(nextIt);
@@ -115,7 +103,8 @@ void BlockAllocator::releaseBlock(const BlockInfoIt &it)
 	if (it != _allocetedBlocks.begin())
 	{
 		auto prevIt = std::prev(it);
-		if (!prevIt->busy)
+		bool neighborsPtr = (static_cast<char *>(prevIt->ptr) + prevIt->size == it->ptr);
+		if (!prevIt->busy && neighborsPtr)
 		{
 			prevIt->size += it->size;
 			_allocetedBlocks.erase(it);

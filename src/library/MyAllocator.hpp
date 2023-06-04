@@ -2,6 +2,8 @@
 
 #include "BlockAllocator.h"
 
+static const std::size_t DEFAULT_ALLOCATED_BLOCK_SIZE = 10;
+
 
 template<class T>
 struct MyAllocator 
@@ -32,7 +34,7 @@ struct MyAllocator
 
 template<class T>
 MyAllocator<T>::MyAllocator() noexcept
-	: _blockAllocator{ new BlockAllocator }
+	: _blockAllocator{ new BlockAllocator(DEFAULT_ALLOCATED_BLOCK_SIZE * sizeof(T))}
 {
 }
 

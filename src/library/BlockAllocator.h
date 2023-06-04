@@ -8,8 +8,6 @@ struct BlockInfo
 	void *ptr{ nullptr };
 	std::size_t size{ 0 };
 	bool busy{ false };
-
-	bool operator==(const BlockInfo &other) const;
 };
 
 
@@ -17,7 +15,7 @@ struct BlockInfo
 class BlockAllocator
 {
 public:
-	BlockAllocator();
+	BlockAllocator(std::size_t blockSize);
 	~BlockAllocator();
 
 	void *allocate(std::size_t size);
