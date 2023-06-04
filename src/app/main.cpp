@@ -7,15 +7,15 @@
 
 
 template<template<typename...> typename Map, typename... Subtypes>
-void fillMapByFactorial(Map<Subtypes...> &map, int size)
+void fillMapByFactorial(Map<Subtypes...> &map, std::size_t size)
 {
-	if (size == 0)
+	if (!size)
 		return;
 	
 	int factorial = 1;
 	map[0] = factorial;
 
-	for (int i = 1; i < size; ++i)
+	for (std::size_t i = 1; i < size; ++i)
 	{
 		factorial = factorial * i;
 		map[i] = factorial;
@@ -34,9 +34,9 @@ void printMap(Map<Subtypes...> &map)
 
 
 template<template<typename...> typename Vector, typename... Subtypes>
-void fillVectorByRange(Vector<Subtypes...> &vector, int size)
+void fillVectorByRange(Vector<Subtypes...> &vector, std::size_t size)
 {
-	for (int i = 0; i < size; ++i)
+	for (std::size_t i = 0; i < size; ++i)
 		vector.push_back(i);
 }
 
@@ -53,20 +53,22 @@ void printVector(Vector<Subtypes...> &vector)
 
 int main()
 {
+	const std::size_t size = 10;
+	
 	std::map<int, int> map1;
-	fillMapByFactorial(map1, 10);
+	fillMapByFactorial(map1, size);
 	//printMap(map1);
 
 	std::map<int, int, std::less<int>, MyAllocator<std::pair<const int, int>>> map2;
-	fillMapByFactorial(map2, 10);
+	fillMapByFactorial(map2, size);
 	printMap(map2);
 
 	MyVector<int> vector1;
-	fillVectorByRange(vector1, 10);
+	fillVectorByRange(vector1, size);
 	//printVector(vector1);
 
 	MyVector<int, MyAllocator<int>> vector2;
-	fillVectorByRange(vector2, 10);
+	fillVectorByRange(vector2, size);
 	printVector(vector2);
 
 	return 0;
