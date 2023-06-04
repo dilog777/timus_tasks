@@ -10,7 +10,7 @@ TEST(test_google_version, test_my_allocator)
 	std::map<int, int> map1;
 	std::map<int, int, std::less<int>, MyAllocator<std::pair<const int, int>>> map2;
 	
-	const std::size_t size = 100;
+	const int size = 100;
 	for (int i = 0; i < size; ++i)
 	{
 		int key = rand();
@@ -32,7 +32,7 @@ TEST(test_google_version, test_my_vector)
 	std::vector<int> vector1;
 	MyVector<int> vector2;
 
-	const std::size_t size = 100;
+	const int size = 100;
 	for (int i = 0; i < size; ++i)
 	{
 		int value = rand();
@@ -53,7 +53,7 @@ TEST(test_google_version, test_my_vector_with_my_allocator)
 	MyVector<int> vector1;
 	MyVector<int, MyAllocator<int>> vector2;
 
-	const std::size_t size = 10;
+	const int size = 10;
 	for (int i = 0; i < size; ++i)
 	{
 		int value = rand();
