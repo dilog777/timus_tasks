@@ -25,12 +25,14 @@ void *BlockAllocator::allocate(std::size_t size)
 	auto it = std::find_if(_allocetedBlocks.begin(), _allocetedBlocks.end(), choiseFunc);
 	if (it == _allocetedBlocks.end())
 	{
-		auto memoryPtr = ::operator new(_blockSize);
+		auto blockSize = std::max(_blockSize, size);
+		
+		auto memoryPtr = ::operator new(blockSize);
 		if (!memoryPtr)
 			throw std::bad_alloc();
 
-		_globalBlocks.push_back(BlockInfo{ memoryPtr, _blockSize });
-		_allocetedBlocks.push_back(BlockInfo{ memoryPtr, _blockSize });
+		_globalBlocks.push_back(BlockInfo{ memoryPtr, blockSize });
+		_allocetedBlocks.push_back(BlockInfo{ memoryPtr, blockSize });
 		it = --_allocetedBlocks.end();
 	}
 
