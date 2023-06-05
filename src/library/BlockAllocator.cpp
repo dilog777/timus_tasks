@@ -22,8 +22,8 @@ BlockAllocator::~BlockAllocator()
 void *BlockAllocator::allocate(std::size_t size)
 {
 	auto choiseFunc = [size](const BlockInfo &bi) { return !(bi.busy || bi.size < size); };
-	auto it = std::find_if(_allocetedBlocks.begin(), _allocetedBlocks.end(), choiseFunc);
-	if (it == _allocetedBlocks.end())
+	auto it = std::find_if(_allocatedBlocks.begin(), _allocatedBlocks.end(), choiseFunc);
+	if (it == _allocatedBlocks.end())
 	{
 		auto blockSize = std::max(_blockSize, size);
 		
@@ -32,8 +32,8 @@ void *BlockAllocator::allocate(std::size_t size)
 			throw std::bad_alloc();
 
 		_globalBlocks.push_back(BlockInfo{ memoryPtr, blockSize });
-		_allocetedBlocks.push_back(BlockInfo{ memoryPtr, blockSize });
-		it = --_allocetedBlocks.end();
+		_allocatedBlocks.push_back(BlockInfo{ memoryPtr, blockSize });
+		it = std::prev(_allocatedBlocks.end());
 	}
 
 	occupyBlock(it, size);
@@ -44,7 +44,7 @@ void *BlockAllocator::allocate(std::size_t size)
 
 void BlockAllocator::deallocate(void *ptr)
 {
-	for (auto it = _allocetedBlocks.begin(); it != _allocetedBlocks.end(); ++it)
+	for (auto it = _allocatedBlocks.begin(); it != _allocatedBlocks.end(); ++it)
 	{
 		if (it->ptr == ptr)
 		{
@@ -77,7 +77,7 @@ void BlockAllocator::occupyBlock(const BlockInfoIt &it, std::size_t size)
 		BlockInfo freeBlock;
 		freeBlock.ptr = static_cast<char *>(it->ptr) + size;
 		freeBlock.size = it->size - size;
-		_allocetedBlocks.insert(std::next(it), freeBlock);
+		_allocatedBlocks.insert(std::next(it), freeBlock);
 
 		it->size = size;
 	}
@@ -91,25 +91,25 @@ void BlockAllocator::releaseBlock(const BlockInfoIt &it)
 {
 	it->busy = false;
 	
-	if (it != _allocetedBlocks.end())
+	if (it != _allocatedBlocks.end())
 	{
 		auto nextIt = std::next(it);
 		bool neighborsPtr = (static_cast<char *>(it->ptr) + it->size == nextIt->ptr);
 		if (!nextIt->busy && neighborsPtr)
 		{
 			it->size += nextIt->size;
-			_allocetedBlocks.erase(nextIt);
+			_allocatedBlocks.erase(nextIt);
 		}
 	}
 
-	if (it != _allocetedBlocks.begin())
+	if (it != _allocatedBlocks.begin())
 	{
 		auto prevIt = std::prev(it);
 		bool neighborsPtr = (static_cast<char *>(prevIt->ptr) + prevIt->size == it->ptr);
 		if (!prevIt->busy && neighborsPtr)
 		{
 			prevIt->size += it->size;
-			_allocetedBlocks.erase(it);
+			_allocatedBlocks.erase(it);
 		}
 	}
 }

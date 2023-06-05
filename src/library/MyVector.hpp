@@ -13,8 +13,6 @@ public:
 
 	void clear();
 
-
-
 private:
 	std::size_t _size{ 0 };
 	std::size_t _capacity{ 0 };

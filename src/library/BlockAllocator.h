@@ -26,7 +26,7 @@ public:
 
 private:
 	std::list<BlockInfo> _globalBlocks;
-	std::list<BlockInfo> _allocetedBlocks;
+	std::list<BlockInfo> _allocatedBlocks;
 
 	std::size_t _blockSize;
 

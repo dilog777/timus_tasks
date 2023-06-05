@@ -12,14 +12,9 @@ void fillMapByFactorial(Map<Subtypes...> &map, std::size_t size)
 	if (!size)
 		return;
 	
-	int factorial = 1;
-	map[0] = factorial;
-
+	map[0] = 1;
 	for (std::size_t i = 1; i < size; ++i)
-	{
-		factorial = factorial * i;
-		map[i] = factorial;
-	}
+		map[i] = map[i - 1] * i;
 }
 
 
