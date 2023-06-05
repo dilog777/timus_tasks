@@ -6,8 +6,8 @@
 #include "MyVector.hpp"
 
 
-template<template<typename...> typename Map, typename... Subtypes>
-void fillMapByFactorial(Map<Subtypes...> &map, std::size_t size)
+template<typename M>
+void fillMapByFactorial(M &map, std::size_t size)
 {
 	if (!size)
 		return;
@@ -19,8 +19,8 @@ void fillMapByFactorial(Map<Subtypes...> &map, std::size_t size)
 
 
 
-template<template<typename...> typename Map, typename... Subtypes>
-void printMap(Map<Subtypes...> &map)
+template<typename M>
+void printMap(const M &map)
 {
 	for (const auto &pair : map)
 		std::cout << pair.first << " " << pair.second << std::endl;
@@ -28,8 +28,8 @@ void printMap(Map<Subtypes...> &map)
 
 
 
-template<template<typename...> typename Vector, typename... Subtypes>
-void fillVectorByRange(Vector<Subtypes...> &vector, std::size_t size)
+template<typename V>
+void fillVectorByRange(V &vector, std::size_t size)
 {
 	for (std::size_t i = 0; i < size; ++i)
 		vector.push_back(i);
@@ -37,8 +37,8 @@ void fillVectorByRange(Vector<Subtypes...> &vector, std::size_t size)
 
 
 
-template<template<typename...> typename Vector, typename... Subtypes>
-void printVector(Vector<Subtypes...> &vector)
+template<typename V>
+void printVector(const V &vector)
 {
 	for (std::size_t i = 0; i < vector.size(); ++i)
 		std::cout << vector.at(i) << std::endl;
