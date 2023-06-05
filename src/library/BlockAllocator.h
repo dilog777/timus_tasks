@@ -3,15 +3,6 @@
 #include <list>
 
 
-struct BlockInfo
-{
-	void *ptr{ nullptr };
-	std::size_t size{ 0 };
-	bool busy{ false };
-};
-
-
-
 class BlockAllocator
 {
 public:
@@ -25,6 +16,13 @@ public:
 	void setBlockSize(std::size_t blockSize);
 
 private:
+	struct BlockInfo
+	{
+		void *ptr{ nullptr };
+		std::size_t size{ 0 };
+		bool busy{ false };
+	};
+
 	std::list<BlockInfo> _globalBlocks;
 	std::list<BlockInfo> _allocatedBlocks;
 

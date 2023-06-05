@@ -21,8 +21,8 @@ BlockAllocator::~BlockAllocator()
 
 void *BlockAllocator::allocate(std::size_t size)
 {
-	auto choiseFunc = [size](const BlockInfo &bi) { return !(bi.busy || bi.size < size); };
-	auto it = std::find_if(_allocatedBlocks.begin(), _allocatedBlocks.end(), choiseFunc);
+	auto compareFunc = [size](const BlockInfo &bi) { return (!bi.busy && bi.size >= size); };
+	auto it = std::find_if(_allocatedBlocks.begin(), _allocatedBlocks.end(), compareFunc);
 	if (it == _allocatedBlocks.end())
 	{
 		auto blockSize = std::max(_blockSize, size);
@@ -44,14 +44,10 @@ void *BlockAllocator::allocate(std::size_t size)
 
 void BlockAllocator::deallocate(void *ptr)
 {
-	for (auto it = _allocatedBlocks.begin(); it != _allocatedBlocks.end(); ++it)
-	{
-		if (it->ptr == ptr)
-		{
-			releaseBlock(it);
-			break;
-		}
-	}
+	auto compareFunc = [ptr](const BlockInfo &bi) { return (bi.ptr == ptr); };
+	auto it = std::find_if(_allocatedBlocks.begin(), _allocatedBlocks.end(), compareFunc);
+	if (it != _allocatedBlocks.end())
+		releaseBlock(it);
 }
 
 
