@@ -87,9 +87,9 @@ void BlockAllocator::releaseBlock(const BlockInfoIt &it)
 {
 	it->busy = false;
 	
-	if (it != _allocatedBlocks.end())
+	auto nextIt = std::next(it);
+	if (nextIt != _allocatedBlocks.end())
 	{
-		auto nextIt = std::next(it);
 		bool neighborsPtr = (static_cast<char *>(it->ptr) + it->size == nextIt->ptr);
 		if (!nextIt->busy && neighborsPtr)
 		{

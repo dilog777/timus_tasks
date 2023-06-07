@@ -5,6 +5,15 @@ template<class T, class Allocator = std::allocator<T>>
 class MyVector
 {
 public:
+	MyVector() = default;
+	~MyVector();
+	
+	MyVector(const MyVector &other);
+	MyVector(MyVector &&other);
+
+	MyVector &operator=(const MyVector &other);
+	MyVector &operator=(MyVector &&other);
+
 	T at(std::size_t pos) const;
 	void push_back(const T& item);
 
@@ -20,6 +29,74 @@ private:
 
 	Allocator _alloc;
 };
+
+
+
+template<class T, class Allocator>
+MyVector<T, Allocator>::~MyVector()
+{
+	_alloc.deallocate(_data, _capacity);
+}
+
+
+
+template<class T, class Allocator>
+MyVector<T, Allocator>::MyVector(const MyVector &other)
+{
+	_size = other._size;
+	_capacity = other._capacity;
+	_data = _alloc.allocate(_capacity);
+
+	T *ptr = &other._data[other._size];
+	std::copy(other._data, ptr, _data);
+}
+
+
+
+template<class T, class Allocator>
+MyVector<T, Allocator>::MyVector(MyVector &&other)
+{
+	std::swap(_size, other._size);
+	std::swap(_capacity, other._capacity);
+	std::swap(_data, other._data);
+	std::swap(_alloc, other._alloc);
+}
+
+
+
+template<class T, class Allocator>
+MyVector<T, Allocator> &MyVector<T, Allocator>::operator=(const MyVector &other)
+{
+	if (&other == this)
+		return *this;
+
+	_alloc.deallocate(_data, _capacity);
+
+	_size = other.size;
+	_capacity = other._capacity;
+	_data = _alloc.allocate(_capacity);
+
+	T *ptr = &other._data[other._size];
+	std::copy(other._data, ptr, _data);
+	return *this;
+}
+
+
+
+template<class T, class Allocator>
+MyVector<T, Allocator> &MyVector<T, Allocator>::operator=(MyVector &&other)
+{
+	if (&other == this)
+		return *this;
+
+	_alloc.deallocate(_data, _capacity);
+
+	std::swap(_size, other._size);
+	std::swap(_capacity, other._capacity);
+	std::swap(_data, other._data);
+	std::swap(_alloc, other._alloc);
+	return *this;
+}
 
 
 
