@@ -16,11 +16,10 @@ else()
 endif()
 
 
-
 add_subdirectory(src)
 
 
-install(TARGETS timus_tasks RUNTIME DESTINATION bin)
+install(TARGETS task_1264 RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
 set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
