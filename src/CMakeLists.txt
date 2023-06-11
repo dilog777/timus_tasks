@@ -1,5 +1,15 @@
-add_subdirectory(app)
-add_subdirectory(library)
-add_subdirectory(test_google)
+add_subdirectory(task_1264)
+add_subdirectory(task_1409)
+add_subdirectory(task_1787)
+add_subdirectory(task_1877)
+add_subdirectory(task_2001)
 
-add_subdirectory(timus)
+set_property(TARGET
+	task_1264
+	task_1409
+	task_1787
+	task_1877
+	task_2001
+
+	PROPERTY FOLDER "timus"
+)
