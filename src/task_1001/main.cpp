@@ -17,6 +17,7 @@
 							37.7757
 */
 
+#include <cmath>
 #include <iomanip>
 #include <iostream>
 #include <list>
@@ -31,7 +32,7 @@ int main()
 		values.push_back(v);
 
 	for (auto it = values.crbegin(); it != values.crend(); ++it)
-		std::cout << std::fixed << std::setprecision(4) << std::sqrt(*it) << std::endl;
+		std::cout << std::fixed << std::setprecision(4) << sqrt(*it) << std::endl;
 
 	return 0;
 }
