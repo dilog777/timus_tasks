@@ -29,6 +29,7 @@ Bi (Ai < Bi, 1 ≤ i ≤ N). Некоторые отрезки могут пер
 
 #include <algorithm>
 #include <iostream>
+#include <limits>
 #include <list>
 #include <map>
 #include <vector>
