@@ -61,7 +61,7 @@ IntersectionMap makeIntersectionMap(const std::vector<Line> &lines)
 {
 	IntersectionMap result;
 
-	size_t size = lines.size();
+	int size = static_cast<int>(lines.size());
 	for (int i = 0; i < size; ++i)
 		result[i] = std::list<int>();
 

@@ -34,6 +34,7 @@
 13 43 67 89 146
 */
 
+#include <algorithm>
 #include <iostream>
 #include <list>
 
