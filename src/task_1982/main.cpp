@@ -28,6 +28,7 @@ cij = cji, cij > 0 для i ≠ j, cii = 0.
 
 */
 
+#include <climits>
 #include <iostream>
 #include <set>
 
