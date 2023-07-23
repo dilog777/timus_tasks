@@ -58,9 +58,9 @@ int main()
 			electrification_cost[row][column] = c;
 		}
 	}
-
+	
 	int sum_cost = 0;
-	while (electrified.size() < n)
+	while (electrified.size() < static_cast<size_t>(n))
 	{
 		int min_cost = INT_MAX;
 		int min_num = 0;
